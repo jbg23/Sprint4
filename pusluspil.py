@@ -134,10 +134,27 @@ class Pusluspil:
         byrjun = True
         synilausn = False
         while True:
+
+            #Hætta í miðjum leik
             event = pygame.event.wait()
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+            #Möugleiki á að rugla aftur í miðju púsli
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    for i in range(50):
+                        d = random.randint(0, self.dalkar-1)
+                        r = random.randint(0, self.radir-1)
+                        global tomurD
+                        global tomurR
+                        self.display.blit(self.pusluspil[self.stada[(d,r)]], (self.tomurD*self.puslbreidd, self.tomurR*self.puslhaed))
+                        self.display.blit(self.pusluspil[self.tomur], (d*self.puslbreidd, r*self.puslhaed))
+                        self.stada[(self.tomurD, self.tomurR)]=self.stada[(d,r)]
+                        (self.tomurD, self.tomurR) = (d,r)
+                        pygame.display.flip()
+            #Byrja leikinn
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if byrjun == True: #Rugla eftir að ýtt er á mús í fyrsta sinn
                     self.rugla()
@@ -193,8 +210,9 @@ class Pusluspil:
             self.screenMessage("Ýttu á myndina til að rugla púslinu.", self.black, +20, size = "small")
             self.screenMessage("Færðu svo reitina til að púsla myndina.", self.black, +50, size = "small")
             self.screenMessage("Þú getur kíkt á réttu myndina með því að hægrismella.", self.black, +80, size = "small")
-            self.screenMessage("Smelltu svo á myndina þegar þú hefur náð að púsla púslið.", self.black, +110, size = "small")
-            self.screenMessage("Ýttu á 1 til að byrja", self.black, +140, size = "small")
+            self.screenMessage("Þú getur alltaf ruglað aftur með því að ýta á r.", self.black, +110, size = "small")
+            self.screenMessage("Þegar þú hefur náð að púsla púslið smelltu þá á myndina.", self.black, +140, size = "small")
+            self.screenMessage("Ýttu á 1 til að byrja", self.black, +170, size = "small")
             pygame.display.update()
 
     def puslSigur(self):

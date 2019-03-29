@@ -213,6 +213,7 @@ class Eltingaleikur:
         self.stig = 0
     #Inngangur
     def pacIntro(self):
+        self.music('tonlist.mp3')
         pygame.init()
         intro = True
         while intro:

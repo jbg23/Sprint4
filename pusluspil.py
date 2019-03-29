@@ -24,6 +24,8 @@ class Pusluspil:
 
     puslintro = pygame.image.load("puslintro.png")
     image = pygame.image.load('mikkipusl.jpg')
+    mikkiMus = pygame.image.load('volundarhus_sigur_mikki.png')
+    minaMus = pygame.image.load('volundarhus_sigur_mina.png')
 
     myndaskra = "mikkipusl.jpg"
     myndastaerd = (750, 500)

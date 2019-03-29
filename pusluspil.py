@@ -24,7 +24,10 @@ class Pusluspil:
 
     puslintro = pygame.image.load("puslintro.png")
     image = pygame.image.load('mikkipusl.jpg')
-    sigurmynd = pygame.image.load('volundarhus_sigur.png')
+
+    #Skilgreinum lokamyndirnar eftir vali á leikmanni
+    minaMus = pygame.image.load("volundarhus_sigur_mina.png")
+    mikkiMus = pygame.image.load("volundarhus_sigur_mikki.png")
 
     myndaskra = "mikkipusl.jpg"
     myndastaerd = (750, 500)
@@ -72,9 +75,8 @@ class Pusluspil:
     display.blit(mynd, (0, 0))
     pygame.display.flip()
 
-    leikmadur =0
 
-    def __init__(self, bord, leikmadur=0):
+    def __init__(self, bord, leikmadur):
         self.leikmadur=leikmadur
         self.bord=bord
         print('smidur púsluspil')
@@ -222,7 +224,11 @@ class Pusluspil:
         display = pygame.display.set_mode((800, 600))
         pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Sigur")
-        self.gameDisplay.blit(self.sigurmynd, [0,0, 800, 600])
+        if self.leikmadur == 0:
+            sigurmynd = self.mikkiMus
+        elif self.leikmadur == 1:
+            sigurmynd = self.minaMus
+        self.gameDisplay.blit(sigurmynd, [0,0, 800, 600])
         self.screenMessage("TIL HAMINGJU", self.black, -90, size = "large" )
         self.screenMessage("ÞÚ VANNST LEIKINN", self.black, -40, size = "large" )
         self.screenMessage("Ýttu á h til að hætta,", self.black, +20, size = "small")

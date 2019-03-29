@@ -88,50 +88,6 @@ class Eltingaleikur:
         pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
         pygame.mixer.music.play()
 
-    def start_setup(self):
-        bakgrunnur = pygame.display.set_mode((500, 500))
-        pygame.display.set_caption("Safnaðu pepperóníunum!")
-
-        #skilgreinum liti
-        pepperoni_litur = pygame.Color(153,0,0)
-        graenn = pygame.Color(255,255,102)
-        blar = pygame.Color(0,102,204)
-        bleikur = pygame.Color(255,51,255)
-        raudur = pygame.Color(255,0,0)
-        svartur = pygame.Color(0,0,0)
-
-        #Mynd af pepperoni sem færist
-        pepp_mynd = pygame.image.load("pepperoni.png")
-        pepp_mynd = pygame.transform.scale(pepp_mynd, (20, 20))
-
-        #Mýs eftir lit, þarf að koma inn hvaða lit á að nota
-        blaMus = pygame.image.load("BlaMina.png")
-        blaMus = pygame.transform.scale(blaMus, (40,40))
-
-        bleikMus = pygame.image.load("BleikMina.png")
-        bleikMus = pygame.transform.scale(bleikMus, (40,40))
-
-        raudMus = pygame.image.load("RaudMina.png")
-        raudMus = pygame.transform.scale(raudMus, (40,40))
-
-        tommi = pygame.image.load("kisi.png")
-        tommi = pygame.transform.scale(tommi, (40,40))
-
-        hradi = pygame.time.Clock()
-
-        mus_stadsetning = [100,50] #upphafsstaðsetning músar
-        mus_staerd = [[100,50]]
-
-        pepperoni_stadsetning = [random.randrange(1,48)*10, random.randrange(1,48)*10] #Random staðsetning á pepperoni
-        pepperoni = True
-
-        kisa1 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)] #Random staðsetning og stefna fyrir kisur
-        kisa2 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
-        kisa3 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
-
-        stig = 0
-        self.byrja()
-
     def hreyfaKisu(self, kisa):
         rand = random.randint(1,20)
         if kisa[2] == 1:
@@ -303,11 +259,11 @@ class Eltingaleikur:
                 valin_mus = self.minaMus
             #Setjum myndir, mús og pepperoni á bakgrunn
             self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])
-            self.bakgrunnur.blit(valin_mus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
-            self.bakgrunnur.blit(self.pepp_mynd, pygame.Rect(self.pepperoni_stadsetning[0], self.pepperoni_stadsetning[1], 20, 20))
-            self.bakgrunnur.blit(self.tommi, pygame.Rect(self.kisa1[0], self.kisa1[1], 40, 40))
-            self.bakgrunnur.blit(self.tommi, pygame.Rect(self.kisa2[0], self.kisa2[1], 40, 40))
-            self.bakgrunnur.blit(self.tommi, pygame.Rect(self.kisa3[0], self.kisa3[1], 40, 40))
+            self.gameDisplay.blit(valin_mus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
+            self.gameDisplay.blit(self.pepp_mynd, pygame.Rect(self.pepperoni_stadsetning[0], self.pepperoni_stadsetning[1], 20, 20))
+            self.gameDisplay.blit(self.tommi, pygame.Rect(self.kisa1[0], self.kisa1[1], 40, 40))
+            self.gameDisplay.blit(self.tommi, pygame.Rect(self.kisa2[0], self.kisa2[1], 40, 40))
+            self.gameDisplay.blit(self.tommi, pygame.Rect(self.kisa3[0], self.kisa3[1], 40, 40))
 
             #Kallar á gameOver fall ef mús klessir á vegg
             if self.mus_stadsetning[0] > 460 or self.mus_stadsetning[0] < 0 or self.mus_stadsetning[1] > 460 or self.mus_stadsetning[1] < 0:

@@ -24,7 +24,10 @@ class Pusluspil:
 
     puslintro = pygame.image.load("puslintro.png")
     image = pygame.image.load('mikkipusl.jpg')
-    sigurmynd = pygame.image.load('volundarhus_sigur.png')
+
+    #Skilgreinum lokamyndirnar eftir vali á leikmanni
+    minaMus = pygame.image.load("volundarhus_sigur_mina.png")
+    mikkiMus = pygame.image.load("volundarhus_sigur_mikki.png")
 
     myndaskra = "mikkipusl.jpg"
     myndastaerd = (750, 500)
@@ -72,9 +75,8 @@ class Pusluspil:
     display.blit(mynd, (0, 0))
     pygame.display.flip()
 
-    leikmadur =0
 
-    def __init__(self, bord, leikmadur=0):
+    def __init__(self, bord, leikmadur):
         self.leikmadur=leikmadur
         self.bord=bord
         print('smidur púsluspil')
@@ -134,10 +136,27 @@ class Pusluspil:
         byrjun = True
         synilausn = False
         while True:
+
+            #Hætta í miðjum leik
             event = pygame.event.wait()
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
+
+            #Möugleiki á að rugla aftur í miðju púsli
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    for i in range(50):
+                        d = random.randint(0, self.dalkar-1)
+                        r = random.randint(0, self.radir-1)
+                        global tomurD
+                        global tomurR
+                        self.display.blit(self.pusluspil[self.stada[(d,r)]], (self.tomurD*self.puslbreidd, self.tomurR*self.puslhaed))
+                        self.display.blit(self.pusluspil[self.tomur], (d*self.puslbreidd, r*self.puslhaed))
+                        self.stada[(self.tomurD, self.tomurR)]=self.stada[(d,r)]
+                        (self.tomurD, self.tomurR) = (d,r)
+                        pygame.display.flip()
+            #Byrja leikinn
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if byrjun == True: #Rugla eftir að ýtt er á mús í fyrsta sinn
                     self.rugla()
@@ -193,8 +212,9 @@ class Pusluspil:
             self.screenMessage("Ýttu á myndina til að rugla púslinu.", self.black, +20, size = "small")
             self.screenMessage("Færðu svo reitina til að púsla myndina.", self.black, +50, size = "small")
             self.screenMessage("Þú getur kíkt á réttu myndina með því að hægrismella.", self.black, +80, size = "small")
-            self.screenMessage("Smelltu svo á myndina þegar þú hefur náð að púsla púslið.", self.black, +110, size = "small")
-            self.screenMessage("Ýttu á 1 til að byrja", self.black, +140, size = "small")
+            self.screenMessage("Þú getur alltaf ruglað aftur með því að ýta á r.", self.black, +110, size = "small")
+            self.screenMessage("Þegar þú hefur náð að púsla púslið smelltu þá á myndina.", self.black, +140, size = "small")
+            self.screenMessage("Ýttu á 1 til að byrja", self.black, +170, size = "small")
             pygame.display.update()
 
     def puslSigur(self):
@@ -204,7 +224,11 @@ class Pusluspil:
         display = pygame.display.set_mode((800, 600))
         pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Sigur")
-        self.gameDisplay.blit(self.sigurmynd, [0,0, 800, 600])
+        if self.leikmadur == 0:
+            sigurmynd = self.mikkiMus
+        elif self.leikmadur == 1:
+            sigurmynd = self.minaMus
+        self.gameDisplay.blit(sigurmynd, [0,0, 800, 600])
         self.screenMessage("TIL HAMINGJU", self.black, -90, size = "large" )
         self.screenMessage("ÞÚ VANNST LEIKINN", self.black, -40, size = "large" )
         self.screenMessage("Ýttu á h til að hætta,", self.black, +20, size = "small")

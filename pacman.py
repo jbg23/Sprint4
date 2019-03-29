@@ -331,6 +331,7 @@ class Eltingaleikur:
             self.hradi.tick(10)
 
     def pacSigur(self):
+        from volundarmyndir import Volundarmyndir
         self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])
         self.screenMessage("ÞÚ VANNST!", self.black, -50, size = "large")
         self.screenMessage("Ýttu á s til ad spila aftur,", self.black, 50, size = "small")
@@ -358,6 +359,5 @@ class Eltingaleikur:
                     if event.key == pygame.K_n:
                         gameWin = False
                         pygame.mixer.music.stop()
-                        naesta = Pusluspil(self,self.leikmadur)
-                        naesta.puslIntro()
-                        naesta.pusluspilrun()
+                        naesta = Volundarmyndir(self,self.leikmadur)
+                        naesta.volundarmynd_bord3()

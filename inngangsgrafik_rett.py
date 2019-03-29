@@ -1,5 +1,6 @@
 import pygame
-from Spurningaleikur_grafik_rett import Question
+#from Spurningaleikur_grafik_rett import Question
+from volundarmyndir import Volundarmyndir
 #from Púsluspil import pusluspil
 
 class Inngangur:
@@ -133,14 +134,12 @@ class Inngangur:
                     self.level= 0
                 elif action == "mikki mús":
                     self.leikmadur=0
-                    bord5 = Question(self,self.leikmadur)
-                    bord5.spurningaIntro()
-                    bord5.gameLoop()
+                    bord5 = Volundarmyndir(self,self.leikmadur)
+                    bord5.volundarmynd_bord1()
                 elif action == "mína mús":
                     self.leikmadur=1
-                    bord5 = Question(self,self.leikmadur)
-                    bord5.spurningaIntro()
-                    bord5.gameLoop()
+                    bord5 = Volundarmyndir(self,self.leikmadur)
+                    bord5.volundarmynd_bord1()
                 elif action == 'tilbaka':
                     self.level = 0
         else:

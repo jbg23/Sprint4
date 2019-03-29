@@ -170,6 +170,7 @@ class Question():
                     self.teljaStig()
 
     def gameLoop(self, gameWin = False):
+        from volundarmyndir import Volundarmyndir
         gameExit =  False
 
         while not gameExit:
@@ -202,9 +203,8 @@ class Question():
                             if event.key == pygame.K_n:
                                 gameWin = False
                                 pygame.mixer.music.stop()
-                                naesta=Eltingaleikur(self,self.leikmadur)
-                                naesta.pacIntro()
-                                naesta.byrja()
+                                naesta=Volundarmyndir(self,self.leikmadur)
+                                naesta.volundarmynd_bord2()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

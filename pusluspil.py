@@ -25,10 +25,6 @@ class Pusluspil:
     puslintro = pygame.image.load("puslintro.png")
     image = pygame.image.load('mikkipusl.jpg')
 
-    #Skilgreinum lokamyndirnar eftir vali á leikmanni
-    minaMus = pygame.image.load("volundarhus_sigur_mina.png")
-    mikkiMus = pygame.image.load("volundarhus_sigur_mikki.png")
-
     myndaskra = "mikkipusl.jpg"
     myndastaerd = (750, 500)
     puslbreidd = 250

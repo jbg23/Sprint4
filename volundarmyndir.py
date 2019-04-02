@@ -71,8 +71,8 @@ class Volundarmyndir:
                 millimynd1 = self.minabord1
             display = pygame.display.set_mode(self.myndastaerd)
             self.gameDisplay.blit(millimynd1, [0,0, 800, 600])
-            self.screenMessage("Þú ert staðsettur hér", self.black, -120, size = "medium" )
-            self.screenMessage("Ýttu á b til að leysa fyrstu þrautina", self.black, -70, size = "medium" )
+            self.screenMessage("Þú ert staðsettur hér", self.black, -50, size = "medium" )
+            self.screenMessage("Ýttu á b til að leysa fyrstu þrautina", self.black, 0, size = "medium" )
             pygame.display.update()
             pygame.display.flip()
 
@@ -96,8 +96,8 @@ class Volundarmyndir:
                 millimynd2 = self.minabord2
             display = pygame.display.set_mode(self.myndastaerd)
             self.gameDisplay.blit(millimynd2, [0,0, 800, 600])
-            self.screenMessage("Þú ert staðsettur hér", self.black, -120, size = "medium" )
-            self.screenMessage("Ýttu á b til að leysa næstu þraut", self.black, -70, size = "medium" )
+            self.screenMessage("Þú ert staðsettur hér", self.black, -50, size = "medium" )
+            self.screenMessage("Ýttu á b til að leysa næstu þraut", self.black, 0, size = "medium" )
             pygame.display.update()
             pygame.display.flip()
 
@@ -121,8 +121,8 @@ class Volundarmyndir:
                 millimynd3 = self.minabord3
             display = pygame.display.set_mode(self.myndastaerd)
             self.gameDisplay.blit(millimynd3, [0,0, 800, 600])
-            self.screenMessage("Þú ert staðsettur hér", self.black, -120, size = "medium" )
-            self.screenMessage("Ýttu á b til að leysa næstu þraut", self.black, -70, size = "medium" )
+            self.screenMessage("Þú ert staðsettur hér", self.black, -50, size = "medium" )
+            self.screenMessage("Ýttu á b til að leysa næstu þraut", self.black, -0, size = "medium" )
             pygame.display.update()
             pygame.display.flip()
 
@@ -147,7 +147,7 @@ class Volundarmyndir:
                 millimynd4 = self.minabord4
             display = pygame.display.set_mode(self.myndastaerd)
             self.gameDisplay.blit(millimynd4, [0,0, 800, 600])
-            self.screenMessage("Þú ert staðsettur hér", self.black, -120, size = "medium" )
-            self.screenMessage("Ýttu á b til að leysa næstu þraut", self.black, -70, size = "medium" )
+            self.screenMessage("Þú ert staðsettur hér", self.black, -50, size = "medium" )
+            self.screenMessage("Ýttu á b til að leysa næstu þraut", self.black, 0, size = "medium" )
             pygame.display.update()
             pygame.display.flip()

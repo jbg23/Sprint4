@@ -123,7 +123,6 @@ class Pusluspil:
             self.skipti(d,r)
 
     def pusluspilrun(self):
-        self.music('tonlist.mp3')
     #Hreyfa púsl með mús
         pygame.init()
         display = pygame.display.set_mode(self.myndastaerd)
@@ -188,6 +187,7 @@ class Pusluspil:
         pygame.quit()
 
     def puslIntro(self):
+        self.music('tonlist.mp3')
         pygame.init()
         intro = True
         while intro:
@@ -256,7 +256,6 @@ class Pusluspil:
 
                     if event.key == pygame.K_b:
                         gameWin = False
-                        pygame.mixer.music.stop()
                         #Setja inn sigurmynd
                         #bord0 = inngangsgrafik_rett.Inngangur()
                         bord0=Inngangur()

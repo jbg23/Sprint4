@@ -47,6 +47,12 @@ class Question():
         #pass
         #loka a gagnagrunn?
 
+    def music(self,tune):
+        pygame.init()
+        pygame.mixer.music.load(tune)
+        pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
+        pygame.mixer.music.play()
+
     def textBox(self, msg, color, x, y, width, height, size = "small"):
         textSurf, textRect = self.texts(msg,color,size)
         textRect.center = ((x+width/2), (y+height/2))
@@ -90,6 +96,7 @@ class Question():
         self.gameDisplay.blit(textSurf, textRect)
 
     def spurningaIntro(self):
+        self.music('tonlist.mp3')
         intro = True
         while intro:
             for event in pygame.event.get():
@@ -229,7 +236,6 @@ class Question():
 
                             if event.key == pygame.K_n:
                                 gameWin = False
-                                pygame.mixer.music.stop()
                                 naesta=Volundarmyndir(self,self.leikmadur)
                                 naesta.volundarmynd_bord2()
 

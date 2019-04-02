@@ -315,7 +315,6 @@ class Eltingaleikur:
 
                     if event.key == pygame.K_n:
                         gameWin = False
-                        pygame.mixer.music.stop()
                         naesta = Volundarmyndir(self,self.leikmadur)
                         naesta.volundarmynd_bord3()
             pygame.display.update()

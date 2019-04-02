@@ -94,6 +94,8 @@ class Volundarmyndir:
             pygame.display.flip()
 
     def volundarmynd_bord3(self):
+        pygame.display.update()
+        pygame.display.flip()
         intro = True
         while intro:
             for event in pygame.event.get():

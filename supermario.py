@@ -22,10 +22,10 @@ class SuperMario:
     ost_mynd = pygame.image.load("Ostur.png")
     ost_mynd = pygame.transform.scale(ost_mynd, (40,40))
 
-    minaMus = pygame.image.load("mina_stor.png")
-    minaMus = pygame.transform.scale(minaMus, (80,120))
+    minaMus = pygame.image.load("mina_hlaup.png")
+    minaMus = pygame.transform.scale(minaMus, (120,160))
 
-    mikkiMus = pygame.image.load("mikki_stor.png")
+    mikkiMus = pygame.image.load("mikki_hlaup.png")
     mikkiMus = pygame.transform.scale(mikkiMus, (40,40))
 
     hindrun1 = pygame.image.load("pipe_green.png")
@@ -35,24 +35,26 @@ class SuperMario:
     hindrun2 = pygame.transform.scale(hindrun2, (50,80))
 
     hindrun3 = pygame.image.load("bowser1.png")
-    hindrun3 = pygame.transform.scale(hindrun3, (80,80))
+    hindrun3 = pygame.transform.scale(hindrun3, (140,140))
 
     hindrun4 = pygame.image.load("rose1.png")
-    hindrun4 = pygame.transform.scale(hindrun4, (40,40))
+    hindrun4 = pygame.transform.scale(hindrun4, (50,80))
 
     hradi = pygame.time.Clock()
 
-    mus_stadsetning = [100,422]
-    ostur_stadsetning = [400,480]
+    mus_stadsetning = [100,360]
+    ostur_stadsetning = [400,220]
 
     #Stadsetningar fyrir hindranir
-    hindrun1_stadsetning = [random.randrange(1,48)*10, 480] #Random staðsetning og stefna fyrir kisur
-    hindrun2_stadsetning = [random.randrange(1,48)*10, 480]
-    hindrun3_stadsetning = [random.randrange(1,48)*10, 480]
-    hindrun4_stadsetning = [random.randrange(1,48)*10, 480]
+    hindrun1_stadsetning = [random.randrange(1,48)*10, 440] #Random staðsetning og stefna fyrir kisur
+    hindrun2_stadsetning = [random.randrange(1,48)*10, 440]
+    hindrun3_stadsetning = [random.randrange(1,48)*10, 380]
+    hindrun4_stadsetning = [random.randrange(1,48)*10, 440]
 
     ostur = True
     stig = 0
+
+    medium = pygame.font.SysFont("algerian", 50)
 
     def __init__(self, bord, leikmadur):
         self.bord = bord
@@ -69,7 +71,7 @@ class SuperMario:
 
     def screenMessage(self, msg,color, height = 0, size = "small"):
         textSurf, textRect = self.texts(msg, color, size)
-        textRect.center = (self.display_width / 2), (self.display_height / 2) + height
+        textRect.center = (self.breidd / 2), (self.haed / 2) + height
         self.gameDisplay.blit(textSurf, textRect)
 
     def music(self,tune):
@@ -79,7 +81,7 @@ class SuperMario:
         pygame.mixer.music.play()
 
     def hindranir(self):
-        passa
+        pass
 
     def stigafjoldi(self, val):
         pygame.init()
@@ -122,17 +124,27 @@ class SuperMario:
                     pygame.quit()
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
+                    if event.key == pygame.K_SPACE:
                         breytt_stadsetning="upp"
                     if event.key == pygame.K_ESCAPE:
                         pygame.event.post(pygame.event.Event(pygame.QUIT))
 
             if breytt_stadsetning == "upp":
-                for i in range(3):
-                    breytt_stadsetning += 10
-                    if breytt_stadsetning == 30:
-                        for i in range(3):
-                            breytt_stadsetning -=10
+                for i in range(0,32):
+                    self.mus_stadsetning[1] -= 5
+                    if self.mus_stadsetning[1] == 200:
+                        haed = 1
+                        pygame.display.update()
+                        for i in range(0,1):
+                            self.mus_stadsetning[1] +=10
+            pygame.display.update()
+            """if haed == 1:
+                for i in range(0,17):
+                    self.mus_stadsetning[1] += 10
+                    if self.mus_stadsetning[1] == 360:
+                        haed = 0
+                        for i in range(0,1):
+                            self.mus_stadsetning[1] -=10"""
 
             #Árekstur (mús nær osti)
             teljari = 0

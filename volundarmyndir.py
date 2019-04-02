@@ -45,6 +45,12 @@ class Volundarmyndir:
             textSurface = self.large.render(text, True, color)
         return textSurface, textSurface.get_rect()
 
+    def music(self,tune):
+        pygame.init()
+        pygame.mixer.music.load(tune)
+        pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
+        pygame.mixer.music.play()
+
     def volundarmynd_bord1(self):
         intro = True
         while intro:

@@ -18,6 +18,8 @@ class Question():
 
     black = (0, 0, 0)
     green = (0,255,0)
+    gray = (211, 211, 211)
+    white = (255, 255, 255)
 
     small = pygame.font.SysFont("algerian", 35)
     medium = pygame.font.SysFont("algerian", 50)
@@ -64,6 +66,29 @@ class Question():
         textRect.center = (self.display_width / 2), (self.display_height / 2) + height
         self.gameDisplay.blit(textSurf, textRect)
 
+    def textObjectsBlack(self,text, font, litur0):
+        textSurface = font.render(text, True, litur0)
+        return textSurface, textSurface.get_rect()
+
+    def takkar(self,text,x,y,breidd,haed,litur1,litur2,action=None):
+        mouse = pygame.mouse.get_pos()
+        click = pygame.mouse.get_pressed()
+        #Gera kassa gráa ef músin fer yfir kassana
+        if x+breidd > mouse[0] > x and y+haed > mouse[1] > y:
+            pygame.draw.rect(self.gameDisplay, litur2,(x,y,breidd,haed))
+            if click[0] == 1 and action != None:
+                if action == 'Byrja':
+                    self.level = 1
+                    self.playGame(1)
+        else:
+            pygame.draw.rect(self.gameDisplay, litur1,(x,y,breidd,haed))
+
+        litur0= self.white
+        takkar2 = pygame.font.Font('Raleway.ttf', 30)
+        textSurf, textRect = self.textObjectsBlack(text, takkar2, litur0)
+        textRect.center = ((x+(breidd/2)),(y+(haed/2)))
+        self.gameDisplay.blit(textSurf, textRect)
+
     def spurningaIntro(self):
         intro = True
         while intro:
@@ -71,18 +96,20 @@ class Question():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN:
+                #elif
+                """"if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1:
                         self.level = 1
                         intro = False
                     if event.key == pygame.K_h:
                         pygame.quit()
-                        sys.exit()
+                        sys.exit()"""
             self.gameDisplay.blit(self.image, [0,0, 800, 600])
             self.screenMessage("Velkomin/nn i spurningarleik", self.black, -120, size = "medium" )
             self.screenMessage("völundarmúsarinnar", self.black, -70, size = "medium" )
             self.screenMessage("Þú þarft að svara 4 spurningum rétt i röð til að komast áfram.", self.black, +80, size = "small")
-            self.screenMessage("Ýttu á 1 til að byrja", self.black, +110, size = "small")
+            #self.screenMessage("Ýttu á 1 til að byrja", self.black, +110, size = "small")
+            self.takkar("Spila borð",325,450,150,75,self.black,self.gray,'Byrja')
             pygame.display.update()
 
     #Synir fjolda rettra svara i rod
@@ -217,6 +244,26 @@ class Question():
 
             pygame.display.update()
             #self.clock.tick(0)
+
+        def byrja(self):
+            self.music('tonlist.mp3')
+            self.setup()
+            done = False
+            #state_tune=1
+            while not done:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        done = True
+                if self.level ==0:
+                    #self.music('tonlist.mp3')
+                    #state_tune=0
+                    self.spurningaIntro()
+                """elif self.level ==1:
+                    #self.music('tonlist.mp3')
+                    #state_tune =1
+                    self.()"""
+                pygame.display.update()
+                pygame.display.flip()
 
         self.c.close()
         self.conn.close()

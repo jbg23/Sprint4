@@ -8,11 +8,11 @@ from pusluspil import Pusluspil
 
 class Volundarmyndir:
 
-    breidd = 750
-    haed = 500
+    breidd = 800
+    haed = 600
     size = [breidd,haed]
-    gameDisplay = pygame.display.set_mode(size)
-    myndastaerd = (750,500)
+    myndastaerd = (800,600)
+    gameDisplay = pygame.display.set_mode(myndastaerd)
     black = (0, 0, 0)
     small = pygame.font.SysFont("algerian", 35)
     medium = pygame.font.SysFont("algerian", 50)
@@ -63,7 +63,8 @@ class Volundarmyndir:
                 millimynd1 = self.mikkibord1
             elif self.leikmadur == 1:
                 millimynd1 = self.minabord1
-            self.gameDisplay.blit(millimynd1, [0,0, 750, 500])
+            display = pygame.display.set_mode(self.myndastaerd)
+            self.gameDisplay.blit(millimynd1, [0,0, 800, 600])
             self.screenMessage("Þú ert staðsettur hér", self.black, -120, size = "medium" )
             self.screenMessage("Ýttu á b til að leysa fyrstu þrautina", self.black, -70, size = "medium" )
             pygame.display.update()
@@ -87,15 +88,14 @@ class Volundarmyndir:
                 millimynd2 = self.mikkibord2
             elif self.leikmadur == 1:
                 millimynd2 = self.minabord2
-            self.gameDisplay.blit(millimynd2, [0,0, 750, 500])
+            display = pygame.display.set_mode(self.myndastaerd)
+            self.gameDisplay.blit(millimynd2, [0,0, 800, 600])
             self.screenMessage("Þú ert staðsettur hér", self.black, -120, size = "medium" )
             self.screenMessage("Ýttu á b til að leysa næstu þraut", self.black, -70, size = "medium" )
             pygame.display.update()
             pygame.display.flip()
 
     def volundarmynd_bord3(self):
-        pygame.display.update()
-        pygame.display.flip()
         intro = True
         while intro:
             for event in pygame.event.get():
@@ -113,7 +113,34 @@ class Volundarmyndir:
                 millimynd3 = self.mikkibord3
             elif self.leikmadur == 1:
                 millimynd3 = self.minabord3
-            self.gameDisplay.blit(millimynd3, [0,0, 750, 500])
+            display = pygame.display.set_mode(self.myndastaerd)
+            self.gameDisplay.blit(millimynd3, [0,0, 800, 600])
+            self.screenMessage("Þú ert staðsettur hér", self.black, -120, size = "medium" )
+            self.screenMessage("Ýttu á b til að leysa næstu þraut", self.black, -70, size = "medium" )
+            pygame.display.update()
+            pygame.display.flip()
+
+
+    def volundarmynd_bord4(self):
+        intro = True
+        while intro:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_b:
+                        gameWin = False
+                        pygame.mixer.music.stop()
+                        naesta=Pusluspil(self,self.leikmadur)
+                        naesta.puslIntro()
+                        naesta.pusluspilrun()
+            if self.leikmadur == 0:
+                millimynd4 = self.mikkibord4
+            elif self.leikmadur == 1:
+                millimynd4 = self.minabord4
+            display = pygame.display.set_mode(self.myndastaerd)
+            self.gameDisplay.blit(millimynd4, [0,0, 800, 600])
             self.screenMessage("Þú ert staðsettur hér", self.black, -120, size = "medium" )
             self.screenMessage("Ýttu á b til að leysa næstu þraut", self.black, -70, size = "medium" )
             pygame.display.update()

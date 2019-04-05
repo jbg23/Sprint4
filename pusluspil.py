@@ -187,7 +187,7 @@ class Pusluspil:
         pygame.quit()
 
     def puslIntro(self):
-        self.music('Jungle_Book.mp3')
+        self.music('Jungle_Book_rettrett.mp3')
         pygame.init()
         intro = True
         while intro:

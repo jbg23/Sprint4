@@ -169,7 +169,7 @@ class Eltingaleikur:
         self.stig = 0
     #Inngangur
     def pacIntro(self):
-        self.music('mission_impossible.mp3')
+        self.music('mission_impossible_rett.mp3')
         pygame.init()
         intro = True
         while intro:
@@ -195,7 +195,6 @@ class Eltingaleikur:
             pygame.display.update()
 
     def byrja(self):
-        #self.music('mission_impossible.mp3')
         att = "RIGHT"
         breytt_att = att
         while True:

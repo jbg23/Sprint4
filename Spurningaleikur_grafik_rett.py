@@ -96,7 +96,7 @@ class Question():
         self.gameDisplay.blit(textSurf, textRect)
 
     def spurningaIntro(self):
-        self.music('lion_king.mp3')
+        self.music('mission_impossible.mp3')
         intro = True
         while intro:
             for event in pygame.event.get():
@@ -252,7 +252,7 @@ class Question():
             #self.clock.tick(0)
 
         def byrja(self):
-            self.music('lion_king.mp3')
+            #self.music('lion_king2.mp3')
             self.setup()
             done = False
             #state_tune=1

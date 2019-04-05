@@ -152,7 +152,7 @@ class Inngangur:
         self.gameDisplay.blit(textSurf, textRect)
 
     def byrja(self):
-        self.music('hakuna_matata.mp3')
+        self.music('Hakuna_Matata.mp3')
         self.setup()
         done = False
         #state_tune=1

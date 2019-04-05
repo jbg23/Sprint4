@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 import time
+
 pygame.init()
 
 class SuperMario:
@@ -18,15 +19,18 @@ class SuperMario:
     #Skilgreinum liti
     svartur = (0, 0, 0)
 
+    fjoldi = 0
+    breyta = False
+
     #Ostamynd og staerd
     ost_mynd = pygame.image.load("Ostur.png")
     ost_mynd = pygame.transform.scale(ost_mynd, (40,40))
 
     minaMus = pygame.image.load("mina_hlaup.png")
-    minaMus = pygame.transform.scale(minaMus, (120,160))
+    minaMus = pygame.transform.scale(minaMus, (120, 160))
 
     mikkiMus = pygame.image.load("mikki_hlaup.png")
-    mikkiMus = pygame.transform.scale(mikkiMus, (40,40))
+    mikkiMus = pygame.transform.scale(mikkiMus, (120,160))
 
     hindrun1 = pygame.image.load("pipe_green.png")
     hindrun1 = pygame.transform.scale(hindrun1, (50,80))
@@ -35,7 +39,7 @@ class SuperMario:
     hindrun2 = pygame.transform.scale(hindrun2, (50,80))
 
     hindrun3 = pygame.image.load("bowser1.png")
-    hindrun3 = pygame.transform.scale(hindrun3, (140,140))
+    hindrun3 = pygame.transform.scale(hindrun3, (80,100))
 
     hindrun4 = pygame.image.load("rose1.png")
     hindrun4 = pygame.transform.scale(hindrun4, (50,80))
@@ -46,15 +50,19 @@ class SuperMario:
     ostur_stadsetning = [400,220]
 
     #Stadsetningar fyrir hindranir
-    hindrun1_stadsetning = [random.randrange(1,48)*10, 440] #Random staðsetning og stefna fyrir kisur
-    hindrun2_stadsetning = [random.randrange(1,48)*10, 440]
-    hindrun3_stadsetning = [random.randrange(1,48)*10, 380]
-    hindrun4_stadsetning = [random.randrange(1,48)*10, 440]
+    hindrun1_stadsetning = [800, 440]
+    hindrun2_stadsetning = [800, 440]
+    hindrun3_stadsetning = [800, 420]
+    hindrun4_stadsetning = [800, 440]
 
     ostur = True
     stig = 0
 
+    small = pygame.font.SysFont("algerian", 30)
     medium = pygame.font.SysFont("algerian", 50)
+    large =  pygame.font.SysFont("algerian", 80)
+
+    stak = 0
 
     def __init__(self, bord, leikmadur):
         self.bord = bord
@@ -80,8 +88,56 @@ class SuperMario:
         pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
         pygame.mixer.music.play()
 
-    def hindranir(self):
-        pass
+    def SuperIntro(self):
+        self.music('tonlist.mp3')
+        pygame.init()
+        intro = True
+        while intro:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_1:
+                        self.level = 1
+                        intro = False
+                    if event.key == pygame.K_h:
+                        pygame.quit()
+                        sys.exit()
+            display = pygame.display.set_mode((500, 500))
+            self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])
+            pygame.display.set_caption("Safnaðu ostbitunum!")
+            self.screenMessage("Velkomin/nn i Ofurmúsina", self.black, -120, size = "medium" )
+            self.screenMessage("Safnaðu 5 ostbitum", self.black, +20, size = "small")
+            self.screenMessage("en passaðu þig á hindrununum!", self.black, +50, size = "small")
+            self.screenMessage("Ýttu á 1 til að byrja", self.black, +80, size = "small")
+            pygame.display.update()
+
+    def hindranir(self, tala, bull):
+        if self.stak == 0:
+            self.hindrun1_stadsetning[0] -= 10
+            self.gameDisplay.blit(self.hindrun1, pygame.Rect(self.hindrun1_stadsetning[0], self.hindrun1_stadsetning[1], 40, 40))
+            pygame.time.wait(5)
+            if self.hindrun1_stadsetning[0] <= -200:
+                self.hindrun1_stadsetning[0] = 900
+        elif self.stak == 1:
+            self.hindrun2_stadsetning[0] -= 10
+            self.gameDisplay.blit(self.hindrun2, pygame.Rect(self.hindrun2_stadsetning[0], self.hindrun2_stadsetning[1], 40, 40))
+            pygame.time.wait(5)
+            if self.hindrun2_stadsetning[0] <= -200:
+                self.hindrun2_stadsetning[0] = 900
+        elif self.stak == 2:
+            self.hindrun3_stadsetning[0] -= 10
+            self.gameDisplay.blit(self.hindrun3, pygame.Rect(self.hindrun3_stadsetning[0], self.hindrun3_stadsetning[1], 40, 40))
+            pygame.time.wait(5)
+            if self.hindrun3_stadsetning[0] <= -200:
+                self.hindrun3_stadsetning[0] = 900
+        elif self.stak == 3:
+            self.hindrun4_stadsetning[0] -= 10
+            self.gameDisplay.blit(self.hindrun4, pygame.Rect(self.hindrun4_stadsetning[0], self.hindrun4_stadsetning[1], 40, 40))
+            pygame.time.wait(5)
+            if self.hindrun4_stadsetning[0] <= -200:
+                self.hindrun4_stadsetning[0] = 900
 
     def stigafjoldi(self, val):
         pygame.init()
@@ -104,11 +160,23 @@ class SuperMario:
             pygame.quit()
             sys.exit()
         pygame.display.update()
-        self.restartPac()
+        #self.restartPac()
         self.pacIntro()
 
     def restart(self):
-        pass
+        self.mus_stadsetning = [100,360]
+        self.ostur_stadsetning = [400,220]
+
+        #Stadsetningar fyrir hindranir
+        self.hindrun1_stadsetning = [800, 440]
+        self.hindrun2_stadsetning = [800, 440]
+        self.hindrun3_stadsetning = [800, 380]
+        self.hindrun4_stadsetning = [800, 440]
+
+        ostur = True
+        stig = 0
+
+
 
     def Intro(self):
         pass
@@ -118,6 +186,8 @@ class SuperMario:
         stadsetning = "nidur"
         breytt_stadsetning = stadsetning
         haed = 0
+        self.hnit= 1000
+        self.stak = random.randint(0,3)
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -125,62 +195,85 @@ class SuperMario:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        breytt_stadsetning="upp"
+                        self.breyta = True
                     if event.key == pygame.K_ESCAPE:
                         pygame.event.post(pygame.event.Event(pygame.QUIT))
-
+            """
             if breytt_stadsetning == "upp":
                 for i in range(0,32):
                     self.mus_stadsetning[1] -= 5
                     if self.mus_stadsetning[1] == 200:
                         haed = 1
-                        pygame.display.update()
+                        #pygame.display.update()
                         for i in range(0,1):
                             self.mus_stadsetning[1] +=10
-            pygame.display.update()
-            """if haed == 1:
-                for i in range(0,17):
-                    self.mus_stadsetning[1] += 10
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+                pygame.display.flip()
+
+            if haed == 1:
+                for i in range(0,32):
+                    self.mus_stadsetning[1] += 5
                     if self.mus_stadsetning[1] == 360:
                         haed = 0
                         for i in range(0,1):
-                            self.mus_stadsetning[1] -=10"""
+                            self.mus_stadsetning[1] -=10
+            """
+
+            if self.breyta == True:
+                if self.fjoldi == 24:
+                    self.breyta = False
+                    self.fjoldi = 0
+                elif self.fjoldi < 12:
+                    self.mus_stadsetning[1] -= 15
+                    self.mus_stadsetning[0] += 2
+                    self.fjoldi += 1
+                else:
+                    self.mus_stadsetning[1] += 15
+                    self.mus_stadsetning[0] -= 2
+                    self.fjoldi += 1
+
 
             #Árekstur (mús nær osti)
-            teljari = 0
             if (self.ostur_stadsetning[0]+10 >= self.mus_stadsetning[0] and self.ostur_stadsetning[0] <= self.mus_stadsetning[0]+30) and (self.ostur_stadsetning[1]+10 >= self.mus_stadsetning[1] and self.ostur_stadsetning[1] <= self.mus_stadsetning[1]+30):
                 self.stig +=1
                 if self.stig == 5:
                     self.Sigur()
                 self.ostur = False
                 teljari += 1
-            #else:
-                #self.mus_staerd.pop()
 
-            #Setjum myndir, mús og pepperoni á bakgrunn
+            #Kallar á gameOver fall ef mús klessir á kisur
+            if (self.hindrun1_stadsetning[0]+40 >= self.mus_stadsetning[0] and self.hindrun1_stadsetning[0] <= self.mus_stadsetning[0]+110) and (self.hindrun1_stadsetning[1]+70 >= self.mus_stadsetning[1] and self.hindrun1_stadsetning[1] <= self.mus_stadsetning[1]+150):
+                self.gameOver()
+            if (self.hindrun2_stadsetning[0]+40 >= self.mus_stadsetning[0] and self.hindrun2_stadsetning[0] <= self.mus_stadsetning[0]+110) and (self.hindrun2_stadsetning[1]+70 >= self.mus_stadsetning[1] and self.hindrun2_stadsetning[1] <= self.mus_stadsetning[1]+150):
+                self.gameOver()
+            if (self.hindrun3_stadsetning[0]+70 >= self.mus_stadsetning[0] and self.hindrun3_stadsetning[0] <= self.mus_stadsetning[0]+110) and (self.hindrun3_stadsetning[1]+90 >= self.mus_stadsetning[1] and self.hindrun3_stadsetning[1] <= self.mus_stadsetning[1]+150):
+                self.gameOver()
+            if (self.hindrun4_stadsetning[0]+40 >= self.mus_stadsetning[0] and self.hindrun4_stadsetning[0] <= self.mus_stadsetning[0]+110) and (self.hindrun4_stadsetning[1]+70 >= self.mus_stadsetning[1] and self.hindrun4_stadsetning[1] <= self.mus_stadsetning[1]+150):
+                self.gameOver()
+
+            #velja random tölu í lista
+            #stadsetja = True
             self.gameDisplay.blit(self.bakgrunnur, [0,0, 800, 600])
             self.gameDisplay.blit(self.minaMus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
             self.gameDisplay.blit(self.ost_mynd, pygame.Rect(self.ostur_stadsetning[0], self.ostur_stadsetning[1], 20, 20))
-            self.gameDisplay.blit(self.hindrun1, pygame.Rect(self.hindrun1_stadsetning[0], self.hindrun1_stadsetning[1], 40, 40))
-            self.gameDisplay.blit(self.hindrun2, pygame.Rect(self.hindrun2_stadsetning[0], self.hindrun2_stadsetning[1], 40, 40))
-            self.gameDisplay.blit(self.hindrun3, pygame.Rect(self.hindrun3_stadsetning[0], self.hindrun3_stadsetning[1], 40, 40))
-            self.gameDisplay.blit(self.hindrun4, pygame.Rect(self.hindrun4_stadsetning[0], self.hindrun4_stadsetning[1], 40, 40))
-
-            #Kallar á gameOver fall ef mús klessir á kisur
-            if (self.hindrun1_stadsetning[0]+30 >= self.mus_stadsetning[0] and self.hindrun1_stadsetning[0] <= self.mus_stadsetning[0]+30) and (self.hindrun1_stadsetning[1]+30 >= self.mus_stadsetning[1] and self.hindrun1_stadsetning[1] <= self.mus_stadsetning[1]+30):
-                self.gameOver()
-            if (self.hindrun2_stadsetning[0]+30 >= self.mus_stadsetning[0] and self.hindrun2_stadsetning[0] <= self.mus_stadsetning[0]+30) and (self.hindrun2_stadsetning[1]+30 >= self.mus_stadsetning[1] and self.hindrun2_stadsetning[1] <= self.mus_stadsetning[1]+30):
-                self.gameOver()
-            if (self.hindrun3_stadsetning[0]+30 >= self.mus_stadsetning[0] and self.hindrun3_stadsetning[0] <= self.mus_stadsetning[0]+30) and (self.hindrun3_stadsetning[1]+30 >= self.mus_stadsetning[1] and self.hindrun3_stadsetning[1] <= self.mus_stadsetning[1]+30):
-                self.gameOver()
-            if (self.hindrun4_stadsetning[0]+30 >= self.mus_stadsetning[0] and self.hindrun4_stadsetning[0] <= self.mus_stadsetning[0]+30) and (self.hindrun4_stadsetning[1]+30 >= self.mus_stadsetning[1] and self.hindrun4_stadsetning[1] <= self.mus_stadsetning[1]+30):
-                self.gameOver()
-
+            """
+            while stadsetja== True:
+                self.hindranir(self, self.stak)
+                hnit -= 10
+                if hnit == 0:
+                    stadsetja = False
+            """
+            self.hnit -= 10
+            if self.hnit == 0:
+                self.stak = random.randint(0,3)
+                self.hnit = 1000
             #Kalla á hindranir
-            #self.hindranir(self)
-
+            #self.hindranir(self, valin_hindrun)
+            self.hindranir(self, self.stak)
             self. stigafjoldi(1)
-            pygame.display.flip()
+            pygame.display.update()
             self.hradi.tick(10)
 
     def Sigur(self):
@@ -212,6 +305,6 @@ class SuperMario:
                         if event.key == pygame.K_n:
                             gameWin = False
                             pygame.mixer.music.stop()
-                            #naesta = Pusluspil(self,self.leikmadur)
-                            #naesta.puslIntro()
-                            #naesta.pusluspilrun()
+                            """naesta = Pusluspil(self,self.leikmadur)
+                            naesta.puslIntro()
+                            naesta.pusluspilrun()"""

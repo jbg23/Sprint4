@@ -48,7 +48,8 @@ class SuperMario:
     hradi = pygame.time.Clock()
 
     mus_stadsetning = [100,360]
-    ostur_stadsetning = [400,220]
+    ostur_stadsetning = [800,220]
+    ostur_stadsetning2 = [800,220]
 
     #Stadsetningar fyrir hindranir
     hindrun1_stadsetning = [800, 440]
@@ -105,16 +106,16 @@ class SuperMario:
                     if event.key == pygame.K_h:
                         pygame.quit()
                         sys.exit()
-            display = pygame.display.set_mode((500, 500))
-            self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])
+            display = pygame.display.set_mode((800, 600))
+            self.gameDisplay.blit(self.bakgrunnur, [0,0, 800, 600])
             pygame.display.set_caption("Safnaðu ostbitunum!")
-            self.screenMessage("Velkomin/nn i Ofurmúsina", self.black, -120, size = "medium" )
-            self.screenMessage("Safnaðu 5 ostbitum", self.black, +20, size = "small")
-            self.screenMessage("en passaðu þig á hindrununum!", self.black, +50, size = "small")
-            self.screenMessage("Ýttu á 1 til að byrja", self.black, +80, size = "small")
+            self.screenMessage("Velkomin/nn i Ofurmúsina", self.svartur, -120, size = "medium" )
+            self.screenMessage("Safnaðu 5 ostbitum", self.svartur, +20, size = "small")
+            self.screenMessage("en passaðu þig á hindrununum!", self.svartur, +50, size = "small")
+            self.screenMessage("Ýttu á 1 til að byrja", self.svartur, +80, size = "small")
             pygame.display.update()
 
-    def hindranir(self, tala, bull):
+    """def hindranir(self, tala, bull):
         if self.stak == 0:
             self.hindrun1_stadsetning[0] -= 20
             self.gameDisplay.blit(self.hindrun1, pygame.Rect(self.hindrun1_stadsetning[0], self.hindrun1_stadsetning[1], 40, 40))
@@ -138,7 +139,7 @@ class SuperMario:
             self.gameDisplay.blit(self.hindrun4, pygame.Rect(self.hindrun4_stadsetning[0], self.hindrun4_stadsetning[1], 40, 40))
             pygame.time.wait(5)
             if self.hindrun4_stadsetning[0] <= -300:
-                self.hindrun4_stadsetning[0] = 900
+                self.hindrun4_stadsetning[0] = 900"""
 
 
     def h_1(self):
@@ -177,6 +178,13 @@ class SuperMario:
         if self.ostur_stadsetning[0] <= -300:
             self.ostur_stadsetning[0] = 900
 
+    def ostur_hreyfa2(self, hradi):
+        self.ostur_stadsetning2[0] -= hradi
+        self.gameDisplay.blit(self.ost_mynd, pygame.Rect(self.ostur_stadsetning2[0], self.ostur_stadsetning2[1], 40, 40))
+        pygame.time.wait(5)
+        if self.ostur_stadsetning2[0] <= -300:
+            self.ostur_stadsetning2[0] = 900
+
     def Sigur(self):
         from volundarmyndir import Volundarmyndir
         self.gameDisplay.blit(self.bakgrunnur, [0,0, 500, 500])
@@ -200,8 +208,8 @@ class SuperMario:
 
                     if event.key == pygame.K_s:
                         gameWin = False
-                        self.restartPac()
-                        self.pacIntro()
+                        self.restart()
+                        self.SuperIntro()
 
                     if event.key == pygame.K_n:
                         gameWin = False
@@ -233,8 +241,8 @@ class SuperMario:
             pygame.quit()
             sys.exit()
         pygame.display.update()
-        #self.restartPac()
-        self.pacIntro()
+        self.restart()
+        self.SuperIntro()
 
     def restart(self):
         self.mus_stadsetning = [100,360]
@@ -243,17 +251,12 @@ class SuperMario:
         #Stadsetningar fyrir hindranir
         self.hindrun1_stadsetning = [800, 440]
         self.hindrun2_stadsetning = [800, 440]
-        self.hindrun3_stadsetning = [800, 380]
+        self.hindrun3_stadsetning = [800, 430]
         self.hindrun4_stadsetning = [800, 440]
 
+        self.hnit = 0
         ostur = True
         stig = 0
-
-
-
-    def Intro(self):
-        pass
-
 
     def byrja(self):
         stadsetning = "nidur"
@@ -271,28 +274,6 @@ class SuperMario:
                         self.breyta = True
                     if event.key == pygame.K_ESCAPE:
                         pygame.event.post(pygame.event.Event(pygame.QUIT))
-            """
-            if breytt_stadsetning == "upp":
-                for i in range(0,32):
-                    self.mus_stadsetning[1] -= 5
-                    if self.mus_stadsetning[1] == 200:
-                        haed = 1
-                        #pygame.display.update()
-                        for i in range(0,1):
-                            self.mus_stadsetning[1] +=10
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                pygame.display.flip()
-
-            if haed == 1:
-                for i in range(0,32):
-                    self.mus_stadsetning[1] += 5
-                    if self.mus_stadsetning[1] == 360:
-                        haed = 0
-                        for i in range(0,1):
-                            self.mus_stadsetning[1] -=10
-            """
 
             if self.breyta == True:
                 if self.fjoldi == 14:
@@ -312,7 +293,7 @@ class SuperMario:
             teljari = 0
             if (self.ostur_stadsetning[0]+30 >= self.mus_stadsetning[0] and self.ostur_stadsetning[0] <= self.mus_stadsetning[0]+110) and (self.ostur_stadsetning[1]+30 >= self.mus_stadsetning[1] and self.ostur_stadsetning[1] <= self.mus_stadsetning[1]+150):
                 self.stig +=1
-                if self.stig == 50:
+                if self.stig == 10:
                     self.Sigur()
                 self.ostur = False
                 teljari += 1
@@ -321,6 +302,18 @@ class SuperMario:
                 self.ostur_stadsetning=[900,220]
                 self.ostur = True
                 #self.ostur_hreyfa()
+
+            teljari = 0
+            if (self.ostur_stadsetning2[0]+30 >= self.mus_stadsetning[0] and self.ostur_stadsetning2[0] <= self.mus_stadsetning[0]+110) and (self.ostur_stadsetning2[1]+30 >= self.mus_stadsetning[1] and self.ostur_stadsetning2[1] <= self.mus_stadsetning[1]+150):
+                self.stig +=1
+                if self.stig == 10:
+                    self.Sigur()
+                self.ostur = False
+                teljari += 1
+
+            if self.ostur == False:
+                self.ostur_stadsetning2=[900,220]
+                self.ostur = True
 
             #else:
                 #self.mus_staerd.pop()
@@ -343,10 +336,12 @@ class SuperMario:
             if (self.hindrun4_stadsetning[0]+40 >= self.mus_stadsetning[0] and self.hindrun4_stadsetning[0] <= self.mus_stadsetning[0]+100) and (self.hindrun4_stadsetning[1]+70 >= self.mus_stadsetning[1] and self.hindrun4_stadsetning[1] <= self.mus_stadsetning[1]+120): # efri hluti mínu
                 self.gameOver()
 
-            #velja random tölu í lista
-            #stadsetja = True
+            if self.leikmadur == 0:
+                valin_mus = self.mikkiMus
+            elif self.leikmadur == 1:
+                valin_mus = self.minaMus
             self.gameDisplay.blit(self.bakgrunnur, [0,0, 800, 600])
-            self.gameDisplay.blit(self.minaMus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
+            self.gameDisplay.blit(valin_mus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
             #self.gameDisplay.blit(self.ost_mynd, pygame.Rect(self.ostur_stadsetning[0], self.ostur_stadsetning[1], 20, 20))
             """
             while stadsetja== True:
@@ -371,16 +366,31 @@ class SuperMario:
                     self.h_2()
                     #self.hnit=1000"""
 
+            aukahindrun = 0
             self.hnit += 10
             hindrun = 0
             if self.hnit>=30:
                 self.h_1()
+                aukahindrun += 10
                 if self.hnit > 450 and self.hnit< 1000:
                     self.h_3()
-
+                elif aukahindrun == 1000:
+                    aukahindrun = 0
             if self.hnit>= 300:
                 self.h_2()
+                if self.hnit >1352 and self.hnit < 1900:
+                    self.h_4()
+            if self.hnit >= 50:
+                print("ostur1")
+                self.ostur_hreyfa(21)
+            if self.hnit >= 350:
+                print("ostur2")
+                self.ostur_hreyfa2(24)
 
+
+            #if self.hnit >= 30:
+            #  self.h_1()
+            #    if self.hnit > self.hnit <
 
                 #self.stak = random.randint(0,3)
                 #self.hnit = 1000
@@ -390,41 +400,8 @@ class SuperMario:
 
                 #self.h_2()
 
-            self.ostur_hreyfa(30)
+            #self.ostur_hreyfa(40)
 
             self. stigafjoldi(1)
             pygame.display.update()
             self.hradi.tick(10)
-            print(self.hnit)
-    """def Sigur(self):
-        def pacSigur(self):
-            self.gameDisplay.blit(self.bakgrunnur, [0,0, 500, 500])
-            self.screenMessage("ÞÚ VANNST!", self.black, -50, size = "large")
-            self.screenMessage("Ýttu á s til ad spila aftur,", self.black, 50, size = "small")
-            self.screenMessage("h til ad hætta, n fyrir næsta borð ", self.black, 70, size = "small")
-            pygame.display.update()
-
-            while self.stig == 10:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        gameExit = True
-                        gameWin = False
-
-                    if event.type == pygame.KEYDOWN:
-                        if event.key == pygame.K_h:
-                            gameExit = True
-                            gameWin = False
-                            pygame.quit()
-                            sys.exit()
-
-                        if event.key == pygame.K_s:
-                            gameWin = False
-                            self.restartPac()
-                            self.pacIntro()
-
-                        if event.key == pygame.K_n:
-                            gameWin = False
-                            pygame.mixer.music.stop()
-                            naesta = Pusluspil(self,self.leikmadur)
-                            naesta.puslIntro()
-                            naesta.pusluspilrun()"""

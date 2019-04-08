@@ -27,6 +27,7 @@ class Pusluspil:
     mikkiMus = pygame.image.load('volundarhus_sigur_mikki.png')
     minaMus = pygame.image.load('volundarhus_sigur_mina.png')
 
+    mynd1 = "blar.png"
     myndaskra = "mikkipusl.jpg"
     myndastaerd = (750, 500)
     puslbreidd = 250
@@ -222,11 +223,7 @@ class Pusluspil:
         display = pygame.display.set_mode((800, 600))
         pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Sigur")
-        if self.leikmadur == 0:
-            sigurmynd = self.mikkiMus
-        elif self.leikmadur == 1:
-            sigurmynd = self.minaMus
-        self.gameDisplay.blit(sigurmynd, [0,0, 800, 600])
+        self.gameDisplay.blit(self.puslintro, [0,0, 800, 600])
         self.screenMessage("ÞÚ VANNST!", self.black, -90, size = "large" )
         self.screenMessage("Ýttu á h til að hætta,", self.black, +20, size = "small")
         self.screenMessage("s til að spila aftur eða n fyrir næsta borð,", self.black, +40, size = "small")

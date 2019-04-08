@@ -45,6 +45,9 @@ class SuperMario:
     hindrun4 = pygame.image.load("rose2.png")
     hindrun4 = pygame.transform.scale(hindrun4, (50,80))
 
+    mikkisigur = pygame.image.load('volundarhus_sigur_mikki.png')
+    minasigur = pygame.image.load('volundarhus_sigur_mina.png')
+
     hradi = pygame.time.Clock()
 
     mus_stadsetning = [100,360]
@@ -161,7 +164,12 @@ class SuperMario:
 
     def Sigur(self):
         from inngangsgrafik_rett import Inngangur
-        self.gameDisplay.blit(self.bakgrunnur, [0,0, 800, 600])
+        pygame.display.set_caption("Sigur")
+        if self.leikmadur == 0:
+            sigurmynd = self.mikkisigur
+        elif self.leikmadur == 1:
+            sigurmynd = self.minasigur
+        self.gameDisplay.blit(sigurmynd, [0,0, 800, 600])
         self.screenMessage("ÞÚ VANNST!", self.svartur, -50, size = "large")
         self.screenMessage("Ýttu á s til ad spila aftur,", self.svartur, 50, size = "small")
         self.screenMessage("h til ad hætta, b til að byrja leikinn upp á nýtt ", self.svartur, 70, size = "small")
@@ -269,7 +277,6 @@ class SuperMario:
                     self.mus_stadsetning[1] += 25.5
                     self.mus_stadsetning[0] -= 2
                     self.fjoldi += 1
-
 
             #Árekstur (mús nær osti)
             teljari = 0

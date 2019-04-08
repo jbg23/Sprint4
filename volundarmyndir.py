@@ -5,7 +5,7 @@ pygame.init()
 from Spurningaleikur_grafik_rett import Question
 from pacman import Eltingaleikur
 from pusluspil import Pusluspil
-from supermario import SuperMario
+from ofurmus import SuperMario
 
 class Volundarmyndir:
 

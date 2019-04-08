@@ -17,7 +17,6 @@ class SuperMario:
     bakgrunnur = pygame.image.load("super_bak.jpg")
     bakgrunnur_stig = pygame.display.set_mode((800, 600))
 
-
     #Skilgreinum liti
     svartur = (0, 0, 0)
 
@@ -92,7 +91,7 @@ class SuperMario:
         pygame.mixer.music.play()
 
     def SuperIntro(self):
-        self.music('SuperMario.mp3')
+        self.music('Hercules.mp3')
         pygame.init()
         intro = True
         while intro:
@@ -162,7 +161,7 @@ class SuperMario:
 
     def Sigur(self):
         from inngangsgrafik_rett import Inngangur
-        self.gameDisplay.blit(self.bakgrunnur, [0,0, 500, 500])
+        self.gameDisplay.blit(self.bakgrunnur, [0,0, 800, 600])
         self.screenMessage("ÞÚ VANNST!", self.svartur, -50, size = "large")
         self.screenMessage("Ýttu á s til ad spila aftur,", self.svartur, 50, size = "small")
         self.screenMessage("h til ad hætta, b til að byrja leikinn upp á nýtt ", self.svartur, 70, size = "small")
@@ -192,8 +191,8 @@ class SuperMario:
                         bord0.byrja()
 
             pygame.display.update()
-            pygame.quit()
-            sys.exit()
+        pygame.quit()
+        sys.exit()
 
     def stigafjoldi(self, val):
         pygame.init()
@@ -238,7 +237,7 @@ class SuperMario:
         self.stig = 0
 
     def byrja(self):
-        #self.music('')
+        #self.music("Hercules.mp3")
         stadsetning = "nidur"
         breytt_stadsetning = stadsetning
         haed = 0
@@ -292,7 +291,7 @@ class SuperMario:
                 self.ostur = False
                 teljari1 += 1
 
-            if self.stig >= 10:
+            if self.stig == 10:
                 self.Sigur()
 
             if self.ostur == False:

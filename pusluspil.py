@@ -123,8 +123,8 @@ class Pusluspil:
             self.skipti(d,r)
 
     def pusluspilrun(self):
+        self.music("Jungle_Book_rettrett.mp3")
     #Hreyfa púsl með mús
-        #self.music('Jungle_Book_rettrett.mp3')
         pygame.init()
         display = pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Púslaðu Mikka og félaga!")
@@ -134,8 +134,6 @@ class Pusluspil:
         byrjun = True
         synilausn = False
         while True:
-            self.music('Jungle_Book_rettrett.mp3')
-
             #Hætta í miðjum leik
             event = pygame.event.wait()
             if event.type == pygame.QUIT:

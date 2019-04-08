@@ -246,7 +246,7 @@ class Pusluspil:
 
                     if event.key == pygame.K_s:
                         gameWin = False
-                        naesta = Pusluspil(self.leikmadur)
+                        naesta = Pusluspil(self.bord, self.leikmadur)
                         naesta.puslIntro()
                         naesta.pusluspilrun()
 

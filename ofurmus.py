@@ -192,6 +192,7 @@ class SuperMario:
                         gameWin = False
                         self.restart()
                         self.SuperIntro()
+                        self.byrja()
 
                     if event.key == pygame.K_b:
                         gameWin = False

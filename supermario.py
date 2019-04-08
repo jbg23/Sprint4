@@ -375,7 +375,7 @@ class SuperMario:
             hindrun = 0
             if self.hnit>=30:
                 self.h_1()
-                if self.hnit > 500 and self.hnit< 900:
+                if self.hnit > 450 and self.hnit< 1000:
                     self.h_3()
 
             if self.hnit>= 300:

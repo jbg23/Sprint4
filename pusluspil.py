@@ -124,6 +124,7 @@ class Pusluspil:
 
     def pusluspilrun(self):
     #Hreyfa púsl með mús
+        #self.music('Jungle_Book_rettrett.mp3')
         pygame.init()
         display = pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Púslaðu Mikka og félaga!")
@@ -133,6 +134,7 @@ class Pusluspil:
         byrjun = True
         synilausn = False
         while True:
+            self.music('Jungle_Book_rettrett.mp3')
 
             #Hætta í miðjum leik
             event = pygame.event.wait()
@@ -217,7 +219,7 @@ class Pusluspil:
 
     def puslSigur(self):
 
-        from inngangsgrafik_rett import Inngangur
+        from volundarmyndir import Volundarmyndir
 
         display = pygame.display.set_mode((800, 600))
         pygame.display.set_mode(self.myndastaerd)
@@ -227,10 +229,9 @@ class Pusluspil:
         elif self.leikmadur == 1:
             sigurmynd = self.minaMus
         self.gameDisplay.blit(sigurmynd, [0,0, 800, 600])
-        self.screenMessage("TIL HAMINGJU", self.black, -90, size = "large" )
-        self.screenMessage("ÞÚ VANNST LEIKINN", self.black, -40, size = "large" )
+        self.screenMessage("ÞÚ VANNST!", self.black, -90, size = "large" )
         self.screenMessage("Ýttu á h til að hætta,", self.black, +20, size = "small")
-        self.screenMessage("s til að spila aftur eða b til að byrja leikinn upp á nýtt,", self.black, +40, size = "small")
+        self.screenMessage("s til að spila aftur eða n fyrir næsta borð,", self.black, +40, size = "small")
         pygame.display.update()
 
         self.stig=5
@@ -254,12 +255,12 @@ class Pusluspil:
                         naesta.puslIntro()
                         naesta.pusluspilrun()
 
-                    if event.key == pygame.K_b:
+                    if event.key == pygame.K_n:
                         gameWin = False
                         #Setja inn sigurmynd
                         #bord0 = inngangsgrafik_rett.Inngangur()
-                        bord0=Inngangur()
-                        bord0.byrja()
+                        bord4=Volundarmyndir(self, self.leikmadur)
+                        bord4.volundarmynd_bord4()
 
 def main():
     pass

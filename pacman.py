@@ -195,6 +195,7 @@ class Eltingaleikur:
             pygame.display.update()
 
     def byrja(self):
+        self.music('mission_impossible_rett.mp3')
         att = "RIGHT"
         breytt_att = att
         while True:

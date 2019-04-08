@@ -5,6 +5,7 @@ pygame.init()
 from Spurningaleikur_grafik_rett import Question
 from pacman import Eltingaleikur
 from pusluspil import Pusluspil
+from supermario import SuperMario
 
 class Volundarmyndir:
 
@@ -138,9 +139,9 @@ class Volundarmyndir:
                     if event.key == pygame.K_b:
                         gameWin = False
                         pygame.mixer.music.stop()
-                        naesta=Pusluspil(self,self.leikmadur)
-                        naesta.puslIntro()
-                        naesta.pusluspilrun()
+                        naesta=SuperMario(self,self.leikmadur)
+                        naesta.SuperIntro()
+                        naesta.byrja()
             if self.leikmadur == 0:
                 millimynd4 = self.mikkibord4
             elif self.leikmadur == 1:

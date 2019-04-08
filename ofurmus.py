@@ -10,6 +10,7 @@ class SuperMario:
 
     breidd = 800
     haed = 600
+    myndastaerd = (800,600)
     gameDisplay = pygame.display.set_mode((breidd, haed))
     pygame.display.set_caption("Safnaðu ostbitunum!")
     pygame.display.update()
@@ -169,6 +170,7 @@ class SuperMario:
             sigurmynd = self.mikkisigur
         elif self.leikmadur == 1:
             sigurmynd = self.minasigur
+        display = pygame.display.set_mode(self.myndastaerd)
         self.gameDisplay.blit(sigurmynd, [0,0, 800, 600])
         self.screenMessage("ÞÚ VANNST!", self.svartur, -50, size = "large")
         self.screenMessage("Ýttu á s til ad spila aftur,", self.svartur, 50, size = "small")

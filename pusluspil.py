@@ -1,39 +1,36 @@
+#Hlöðum inn ytri einingum
 import sys
 import random
 import pygame
-#import inngangsgrafik_rett
-#from inngangsgrafik_rett import Inngangur
-#import Inngangur()
 pygame.init()
 
+# Klasinn tekur inn og skilar vali a leikmanni
+# Klasinn heldur utan um borðið Púsluspil.
 class Pusluspil:
-    white = (255,255,255)
+    #Ýmsar breytur
     black = (0, 0, 0)
-    red = (255,0,0)
-    green = (0,255,0)
-    blue = (0,0,205)
-
     display_width = 800
     display_height = 600
-    gameDisplay = pygame.display.set_mode((display_width,display_height))
-    pygame.display.update()
-
-    small = pygame.font.SysFont("algerian", 35)
-    medium = pygame.font.SysFont("algerian", 50)
-    large = pygame.font.SysFont("broadway", 65)
-
-    puslintro = pygame.image.load("puslintro.png")
-    image = pygame.image.load('mikkipusl.jpg')
-    mikkiMus = pygame.image.load('volundarhus_sigur_mikki.png')
-    minaMus = pygame.image.load('volundarhus_sigur_mina.png')
-
-    mynd1 = "blar.png"
-    myndaskra = "mikkipusl.jpg"
     myndastaerd = (750, 500)
     puslbreidd = 250
     puslhaed = 250
     dalkar = 3
     radir = 2
+    gameDisplay = pygame.display.set_mode((display_width,display_height))
+    pygame.display.update()
+
+    #Skriftir
+    small = pygame.font.SysFont("algerian", 35)
+    medium = pygame.font.SysFont("algerian", 50)
+    large = pygame.font.SysFont("broadway", 65)
+
+    #Myndir
+    puslintro = pygame.image.load("puslintro.png")
+    image = pygame.image.load('mikkipusl.jpg')
+    mikkiMus = pygame.image.load('volundarhus_sigur_mikki.png')
+    minaMus = pygame.image.load('volundarhus_sigur_mina.png')
+    mynd1 = "blar.png"
+    myndaskra = "mikkipusl.jpg"
 
     #Tómt, svart púsl í neðra hægra horni
     tomur = (dalkar-1, radir-1)
@@ -64,24 +61,19 @@ class Pusluspil:
         for dal in range(3)
             for rad in range(2)}
 
-    #Hvar er tómi ?
+    #Heldur utan um hvar tóma púslið er
     (tomurD, tomurR)= tomur
 
-    #Byrjum leikinn og birtum upphaflega mynd
+    #Birtum upphaflega mynd
     pygame.init()
     display = pygame.display.set_mode(myndastaerd)
     pygame.display.set_caption("Púslaðu Mikka og félaga!")
     display.blit(mynd, (0, 0))
     pygame.display.flip()
 
-
+    #Smiður
     def __init__(self, leikmadur):
         self.leikmadur=leikmadur
-        print('smidur púsluspil')
-
-    def pusluspil_bord2(self, bord):
-        print('Velkominn í annað borð.\nTil að vinna borðið þarft þú að púsla púslið.\nGangi þér vel')
-        self.pusluspilrun()
 
     def texts(self, text, color, size):
         if size == "small":
@@ -107,7 +99,6 @@ class Pusluspil:
     def skipti (self, d,r):
         global tomurD
         global tomurR
-    #    print('window_stada:= ', stada[(d,r)])
         self.display.blit(self.pusluspil[self.stada[(d,r)]], (self.tomurD*self.puslbreidd, self.tomurR*self.puslhaed))
         self.display.blit(self.pusluspil[self.tomur], (d*self.puslbreidd, r*self.puslhaed))
         self.stada[(self.tomurD, self.tomurR)]=self.stada[(d,r)]
@@ -122,9 +113,8 @@ class Pusluspil:
             r = random.randint(0, self.radir-1)
             self.skipti(d,r)
 
+    #Keyrslufall borðsins.
     def pusluspilrun(self):
-        self.music("Jungle_Book_rettrett.mp3")
-    #Hreyfa púsl með mús
         pygame.init()
         display = pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Púslaðu Mikka og félaga!")
@@ -140,7 +130,7 @@ class Pusluspil:
                 pygame.quit()
                 sys.exit()
 
-            #Möugleiki á að rugla aftur í miðju púsli
+            #Möguleiki á að rugla aftur í miðju púsli
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     for i in range(50):
@@ -158,7 +148,7 @@ class Pusluspil:
                 if byrjun == True: #Rugla eftir að ýtt er á mús í fyrsta sinn
                     self.rugla()
                     byrjun = False
-                else:
+                else: #Athugar hvort borðið hafi verið unnið.
                     erSigur = 0
                     for i in range(0, self.dalkar):
                         for j in range(0, self.radir):
@@ -167,7 +157,8 @@ class Pusluspil:
                     if erSigur == self.dalkar * self.radir:
                         self.puslSigur()
                         break
-                    if event.button == 1: #Ef ýtt á músina (vinstri), á púsl við hliðina á tómu púsli þá færist púslið.
+                    #Ef ýtt á músina (vinstri), á púsl við hliðina á tómu púsli þá færist púslið.
+                    if event.button == 1:
                         mouse_pos = pygame.mouse.get_pos()
                         d = int(mouse_pos[0] / self.puslbreidd)
                         r = int(mouse_pos[1] / self.puslhaed)
@@ -186,6 +177,8 @@ class Pusluspil:
                 synilausn = False
         pygame.quit()
 
+    #Inngangur borðsins, spilar lag á meðan borð er í gangi.
+    #Heldur utan um upplýsingar um hvað á að gera ef ýtt er á ákveðna takka.
     def puslIntro(self):
         self.music('Jungle_Book_rettrett.mp3')
         pygame.init()
@@ -215,10 +208,10 @@ class Pusluspil:
             self.screenMessage("Ýttu á 1 til að byrja", self.black, +170, size = "small")
             pygame.display.update()
 
+    #Birtir upplýsingar fyrir leikmann ef hann hefur unnið borðið.
+    #Geymir upplýsingar um hvað skal gera ef ýtt er á ákveðna takka.
     def puslSigur(self):
-
         from volundarmyndir import Volundarmyndir
-
         display = pygame.display.set_mode((800, 600))
         pygame.display.set_mode(self.myndastaerd)
         pygame.display.set_caption("Sigur")
@@ -227,7 +220,6 @@ class Pusluspil:
         self.screenMessage("Ýttu á h til að hætta,", self.black, +20, size = "small")
         self.screenMessage("s til að spila aftur eða n fyrir næsta borð,", self.black, +40, size = "small")
         pygame.display.update()
-
         self.stig=5
 
         while self.stig == 5:
@@ -251,15 +243,5 @@ class Pusluspil:
 
                     if event.key == pygame.K_n:
                         gameWin = False
-                        #Setja inn sigurmynd
-                        #bord0 = inngangsgrafik_rett.Inngangur()
                         bord4=Volundarmyndir(self.leikmadur)
                         bord4.volundarmynd_bord4()
-
-def main():
-    pass
-
-if __name__== '__main__':
-    main()
-else:
-    print('þú ert innportuð í púsluspil')

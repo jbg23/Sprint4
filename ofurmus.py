@@ -70,8 +70,7 @@ class SuperMario:
 
     stak = 0
 
-    def __init__(self, bord, leikmadur):
-        self.bord = bord
+    def __init__(self, leikmadur):
         self.leikmadur = leikmadur
 
     def texts(self, text, color, size):
@@ -198,6 +197,7 @@ class SuperMario:
 
                     if event.key == pygame.K_b:
                         gameWin = False
+                        self.restart()
                         bord0 = Inngangur()
                         bord0.byrja()
 

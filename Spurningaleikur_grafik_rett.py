@@ -36,9 +36,8 @@ class Question():
     tmp=False
     Svar=""
 
-    def __init__(self, bord, leikmadur):
+    def __init__(self, leikmadur):
         print('smidur Spurningaleikur')
-        self.bord = bord
         self.leikmadur = leikmadur
         self.x1=0
         self.count=0
@@ -236,7 +235,7 @@ class Question():
 
                             if event.key == pygame.K_n:
                                 gameWin = False
-                                naesta=Volundarmyndir(self,self.leikmadur)
+                                naesta=Volundarmyndir(self.leikmadur)
                                 naesta.volundarmynd_bord2()
 
             for event in pygame.event.get():

@@ -28,9 +28,8 @@ class Volundarmyndir:
     minabord3 = pygame.image.load('volundarhus_bord3_mina.png')
     minabord4 = pygame.image.load('volundarhus_bord4_mina.png')
 
-    def __init__(self, bord, leikmadur):
+    def __init__(self, leikmadur):
         self.leikmadur=leikmadur
-        self.bord=bord
 
     def screenMessage(self, msg,color, height = 0, size = "small"):
         textSurf, textRect = self.texts(msg, color, size)
@@ -63,7 +62,7 @@ class Volundarmyndir:
                     if event.key == pygame.K_b:
                         gameWin = False
                         pygame.mixer.music.stop()
-                        naesta=Question(self,self.leikmadur)
+                        naesta=Question(self.leikmadur)
                         naesta.spurningaIntro()
                         naesta.gameLoop()
             if self.leikmadur == 0:
@@ -88,7 +87,7 @@ class Volundarmyndir:
                     if event.key == pygame.K_b:
                         gameWin = False
                         pygame.mixer.music.stop()
-                        naesta=Eltingaleikur(self,self.leikmadur)
+                        naesta=Eltingaleikur(self.leikmadur)
                         naesta.pacIntro()
                         naesta.byrja()
             if self.leikmadur == 0:
@@ -113,7 +112,7 @@ class Volundarmyndir:
                     if event.key == pygame.K_b:
                         gameWin = False
                         pygame.mixer.music.stop()
-                        naesta=Pusluspil(self,self.leikmadur)
+                        naesta=Pusluspil(self.leikmadur)
                         naesta.puslIntro()
                         naesta.pusluspilrun()
             if self.leikmadur == 0:
@@ -139,7 +138,7 @@ class Volundarmyndir:
                     if event.key == pygame.K_b:
                         gameWin = False
                         pygame.mixer.music.stop()
-                        naesta=SuperMario(self,self.leikmadur)
+                        naesta=SuperMario(self.leikmadur)
                         naesta.SuperIntro()
                         naesta.byrja()
             if self.leikmadur == 0:

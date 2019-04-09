@@ -75,9 +75,8 @@ class Pusluspil:
     pygame.display.flip()
 
 
-    def __init__(self, bord, leikmadur):
+    def __init__(self, leikmadur):
         self.leikmadur=leikmadur
-        self.bord=bord
         print('smidur púsluspil')
 
     def pusluspil_bord2(self, bord):
@@ -246,7 +245,7 @@ class Pusluspil:
 
                     if event.key == pygame.K_s:
                         gameWin = False
-                        naesta = Pusluspil(self.bord, self.leikmadur)
+                        naesta = Pusluspil(self.leikmadur)
                         naesta.puslIntro()
                         naesta.pusluspilrun()
 
@@ -254,7 +253,7 @@ class Pusluspil:
                         gameWin = False
                         #Setja inn sigurmynd
                         #bord0 = inngangsgrafik_rett.Inngangur()
-                        bord4=Volundarmyndir(self, self.leikmadur)
+                        bord4=Volundarmyndir(self.leikmadur)
                         bord4.volundarmynd_bord4()
 
 def main():

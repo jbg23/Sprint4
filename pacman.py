@@ -64,8 +64,7 @@ class Eltingaleikur:
 
     stig = 0
 
-    def __init__(self, bord, leikmadur):
-        self.bord = bord
+    def __init__(self, leikmadur):
         self.leikmadur = leikmadur
 
     def texts(self, text, color, size):
@@ -316,7 +315,7 @@ class Eltingaleikur:
 
                     if event.key == pygame.K_n:
                         gameWin = False
-                        naesta = Volundarmyndir(self,self.leikmadur)
+                        naesta = Volundarmyndir(self.leikmadur)
                         naesta.volundarmynd_bord3()
             pygame.display.update()
         pygame.quit()

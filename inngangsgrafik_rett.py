@@ -134,11 +134,11 @@ class Inngangur:
                     self.level= 0
                 elif action == "mikki mús":
                     self.leikmadur=0
-                    bord5 = Volundarmyndir(self,self.leikmadur)
+                    bord5 = Volundarmyndir(self.leikmadur)
                     bord5.volundarmynd_bord1()
                 elif action == "mína mús":
                     self.leikmadur=1
-                    bord5 = Volundarmyndir(self,self.leikmadur)
+                    bord5 = Volundarmyndir(self.leikmadur)
                     bord5.volundarmynd_bord1()
                 elif action == 'tilbaka':
                     self.level = 0

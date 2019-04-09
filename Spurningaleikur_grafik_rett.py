@@ -1,10 +1,8 @@
-from pacman import Eltingaleikur
+#Hlöðum inn ytri einingum
 import sqlite3
 import pygame
-import time
 import sys
 pygame.init()
-
 
 #Klasinn tekur inn og skilar vali á leikmanni
 #Klasinn heldur utan um spurningaborð

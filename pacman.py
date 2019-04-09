@@ -5,18 +5,10 @@ import random
 from pusluspil import Pusluspil
 pygame.init()
 
+# Klasinn tekur inn og skilar vali a leikmanni
+# Klasinn heldur utan um borðið Eltingaleikur
 class Eltingaleikur:
-
-    white = (255,255,255)
-    black = (0, 0, 0)
-    red = (255,0,0)
-    green = (0,255,0)
-    blue = (0,0,205)
-
-    small = pygame.font.SysFont("algerian", 35)
-    medium = pygame.font.SysFont("algerian", 50)
-    large = pygame.font.SysFont("broadway", 50)
-
+#Ýmsar breytur
     display_width = 500
     display_height = 500
     gameDisplay = pygame.display.set_mode((display_width,display_height))
@@ -25,45 +17,34 @@ class Eltingaleikur:
     bakgrunnur = pygame.display.set_mode((500, 500))
     pygame.display.set_caption("Safnaðu pepperóníunum!")
 
-    #skilgreinum liti
-    pepperoni_litur = pygame.Color(153,0,0)
-    graenn = pygame.Color(124,255,117)
-    blar = pygame.Color(0,102,204)
-    bleikur = pygame.Color(255,51,255)
-    raudur = pygame.Color(255,0,0)
-    svartur = pygame.Color(0,0,0)
-
-    #bakgrunnsmynd
+    #Myndir
     bakgrunnslitur = pygame.image.load("blar.png")
-
-    #Mynd af pepperoni sem færist
     pepp_mynd = pygame.image.load("pepperoni.png")
     pepp_mynd = pygame.transform.scale(pepp_mynd, (20, 20))
-
-    #Mýs eftir lit, þarf að koma inn hvaða lit á að nota
     minaMus = pygame.image.load("mina.png")
     minaMus = pygame.transform.scale(minaMus, (40,40))
-
     mikkiMus = pygame.image.load("mikki.png")
     mikkiMus = pygame.transform.scale(mikkiMus, (40,40))
-
     tommi = pygame.image.load("kisi.png")
     tommi = pygame.transform.scale(tommi, (40,40))
 
+    black = (0, 0, 0)
+    stig = 0
     hradi = pygame.time.Clock()
+    small = pygame.font.SysFont("algerian", 35)
+    medium = pygame.font.SysFont("algerian", 50)
+    large = pygame.font.SysFont("broadway", 50)
 
+    #Staðsetningar og stærðir músar, pepperonis og kisa.
     mus_stadsetning = [100,50] #upphafsstaðsetning músar
     mus_staerd = [[100,50]]
-
     pepperoni_stadsetning = [random.randrange(1,48)*10, random.randrange(1,48)*10] #Random staðsetning á pepperoni
     pepperoni = True
-
     kisa1 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)] #Random staðsetning og stefna fyrir kisur
     kisa2 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
     kisa3 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
 
-    stig = 0
-
+    #Smiður
     def __init__(self, leikmadur):
         self.leikmadur = leikmadur
 
@@ -87,6 +68,10 @@ class Eltingaleikur:
         pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
         pygame.mixer.music.play()
 
+    #Fallið hreyfir kisur um leikborð eftir hnitum.
+    #Í upphafi er valin random tala sem veldur því að meiri líkur eru á að kisa haldi sömu stefnu áfram heldur en að hún skipti um stefnu.
+    #Athugar í hvaða átt kisan var að fara og breytir ef random talan var 1 eða 2.
+    #Passar einnig að kisur snúi við ef þær klessa á veggi
     def hreyfaKisu(self, kisa):
         rand = random.randint(1,20)
         if kisa[2] == 1:
@@ -130,10 +115,11 @@ class Eltingaleikur:
             elif rand == 2:
                 kisa[2] = 2
 
+    #Birtir stigafjölda leikmanns.
     def stigafjoldi(self, val):
         pygame.init()
         skrift = pygame.font.SysFont('Arial', 24, bold=False, italic=False)
-        skrift_bakg = skrift.render("Stig : {0}" .format(self.stig), True, self.svartur)
+        skrift_bakg = skrift.render("Stig : {0}" .format(self.stig), True, self.black)
         Srect = skrift_bakg.get_rect()
         if val == 1:
             Srect.midtop = (80,10)
@@ -141,6 +127,7 @@ class Eltingaleikur:
             Srect.midtop = (250,250)
         self.bakgrunnur.blit(skrift_bakg , Srect)
 
+    #Birtir mynd ef borðinu er tapað og býður upp á möguleika að reyna aftur.
     def gameOver(self):
         self.screenMessage("Þú tapaðir!", self.black, -40, size = "medium")
         self.screenMessage("Ýttu á hvaða takka sem er til að byrja aftur", self.black, -10, size = "small")
@@ -154,6 +141,7 @@ class Eltingaleikur:
         self.restartPac()
         self.pacIntro()
 
+    #Upphafsstillir allar breytur ef leikmaður reynir borðið aftur.
     def restartPac(self):
         self.mus_stadsetning = [250,250] #upphafsstaðsetning músar
         self.mus_staerd = [[100,50]]
@@ -166,7 +154,9 @@ class Eltingaleikur:
         self.kisa3 = [random.randrange(1,48)*10, random.randrange(1,48)*10, random.randint(1,4)]
 
         self.stig = 0
-    #Inngangur
+
+    #Spilar lag í gegnum borðið.
+    #Heldur utan um upplýsingar um hvað skal gera ef ýtt er á takka.
     def pacIntro(self):
         self.music('mission_impossible_rett.mp3')
         pygame.init()
@@ -193,8 +183,8 @@ class Eltingaleikur:
             self.screenMessage("Ýttu á 1 til að byrja", self.black, +80, size = "small")
             pygame.display.update()
 
+    #Keyrslufall borðsins.
     def byrja(self):
-        #self.music('mission_impossible_rett.mp3')
         att = "RIGHT"
         breytt_att = att
         while True:
@@ -257,6 +247,7 @@ class Eltingaleikur:
                 valin_mus = self.mikkiMus
             elif self.leikmadur == 1:
                 valin_mus = self.minaMus
+
             #Setjum myndir, mús og pepperoni á bakgrunn
             self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])
             self.gameDisplay.blit(valin_mus, pygame.Rect(self.mus_stadsetning[0], self.mus_stadsetning[1], 40, 40))
@@ -286,6 +277,8 @@ class Eltingaleikur:
             pygame.display.flip()
             self.hradi.tick(10)
 
+    #Birtir upplýsingar fyrir leikmann og býður upp á möguleika að spila borð aftur, hætta leik eða halda áfram.
+    #Fallið geymir upplýsingar um hvað skal gera ef ýtt er á ákveðna takka.
     def pacSigur(self):
         from volundarmyndir import Volundarmyndir
         self.gameDisplay.blit(self.bakgrunnslitur, [0,0, 500, 500])

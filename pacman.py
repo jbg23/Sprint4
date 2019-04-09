@@ -1,8 +1,8 @@
+#Hlöðum inn ytri einingum
 import pygame
 import sys
 import time
 import random
-from pusluspil import Pusluspil
 pygame.init()
 
 # Klasinn tekur inn og skilar vali a leikmanni

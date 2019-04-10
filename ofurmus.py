@@ -176,7 +176,7 @@ class SuperMario:
         self.screenMessage("h til ad hætta, b til að byrja leikinn upp á nýtt ", self.svartur, 70, size = "small")
         pygame.display.update()
 
-        while self.stig == 10:
+        while self.stig == 5:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     gameExit = True
@@ -300,7 +300,7 @@ class SuperMario:
                 self.ostur = False
                 teljari1 += 1
 
-            if self.stig == 10:
+            if self.stig == 5:
                 self.Sigur()
 
             if self.ostur == False:

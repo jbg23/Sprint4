@@ -5,7 +5,7 @@ import random
 import time
 pygame.init()
 
-# Klasinn tekur inn og skilar vali a leikmanni
+# Klasinn tekur inn val á leikmanni en skilar engu
 # Klasinn heldur utan um borðið Ofurmus sem er i anda Super Mario.
 
 class SuperMario:
